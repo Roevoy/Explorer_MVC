@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Text</title>
+    <style>
+        .text-center {
+            text-align: center;
+        }
+
+        .display-4 {
+            font-size: 4rem;
+        }
+
+        img {
+            image-rendering: auto;
+            animation: none;
+        }
+        .colorful-text {
+            color: #00ff0b;
+            background-color: rgba(300, 0, 0, 0.7);
+            font-weight: normal;
+        }
+
+            .colorful-text span {
+                font-size: 1.2rem;
+                color: #edff00;
+                background-color: #ff3737;
+                font-weight: 500;
+                padding: 10px 20px;
+            }
+
+        .hello-text span:nth-child(1) {
+            color: red;
+        }
+
+        .hello-text span:nth-child(2) {
+            color: orange;
+        }
+
+        .hello-text span:nth-child(3) {
+            color: gold;
+        }
+
+        .hello-text span:nth-child(4) {
+            color: green;
+        }
+
+        .hello-text span:nth-child(5) {
+            color: blue;
+        }
+
+        .hello-text span:nth-child(6) {
+            color: crimson;
+        }
+
+        .btn-primary {
+            background-color: #ff0000;
+            border-color: #000000;
+        }
+
+            .btn-primary:hover {
+                background-color: #ff9292;
+                border-color: #000000;
+            }
+
+        /* Добавляем центровку для кнопок */
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .button-container form {
+                display: inline-block;
+            }
+
+        /* Стили для гифки */
+        .gif-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+            .gif-container img {
+                width: 900px; /* Настроить размер гифки по своему усмотрению */
+                height: auto;
+            }
+
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4 hello-text">
+            <span>H</span>
+            <span>e</span>
+            <span>l</span>
+            <span>l</span>
+            <span>o</span>
+            <span>!</span>
+        </h1>
+        <p class="colorful-text">
+            <span>Glory to the Ones who look forward!</span>
+        </p>
+    </div>
+
+    <!-- Контейнер для кнопок -->
+    <div class="button-container">
+        <form asp-controller="File" asp-action="Create" method="get">
+            <button type="submit" class="btn btn-primary">New file</button>
+        </form>
+
+        <form asp-controller="Folder" asp-action="Create" method="get">
+            <button type="submit" class="btn btn-primary">New folder</button>
+        </form>
+
+        <form asp-controller="Search" asp-action="Find" method="get">
+            <button type="submit" class="btn btn-primary search-button">Search</button>
+        </form>
+    </div>
+   
+    <!-- Контейнер для гифки -->
+    <div class="gif-container">
+        <img src="/images/FunGif-2Y.gif" alt="Fun Gif" />
+
+    </div>
+</body>
+</html>

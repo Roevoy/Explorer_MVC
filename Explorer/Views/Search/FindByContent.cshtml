@@ -1,0 +1,56 @@
+﻿@model BD_E2_MVC.Models.SearchModel
+
+<h1>Search by content</h1>
+<hr />
+
+<form asp-action="FindByContent" method="post">
+    <div class="form-group">
+        <label for="name" class="control-label">Content</label>
+        <input type="text" id="name" name="name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="path" class="control-label">Path</label>
+        <input type="text" id="path" name="path" class="form-control" />
+    </div>
+    <h1></h1>
+    <br>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+<h1></h1>
+<div class="form-group">
+    <form asp-controller="Search" asp-action="Find" method="get">
+        <button type="submit" class="btn btn-secondary">Back</button>
+    </form>
+</div>
+
+@if (@Model != null)
+{
+    @if (@Model.FoundFiles.Count > 0)
+    {
+        <br>
+        <h2>Found Files</h2>
+        <ul>
+            @foreach (var file in Model.FoundFiles)
+            {
+                <li>
+                    @System.IO.Path.GetFileName(file)
+                    <form asp-controller="ObjectReview" asp-action="Index" method="get" style="display:inline;">
+                        <input type="hidden" name="name" value="@System.IO.Path.GetFileName(file)" />
+                        <input type="hidden" name="path" value="@file" />
+                        <input type="hidden" name="type" value="file" />
+                        <button type="submit" class="btn btn-link">Open</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
+    @if (Model.FoundFiles.Count == 0) 
+    {
+        <br />
+        <h2>No results</h2>
+        <hr />
+    }
+}
+

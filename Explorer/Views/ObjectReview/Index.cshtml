@@ -1,0 +1,112 @@
+﻿@model BD_E2_MVC.Models.ObjectReviewModel
+<div>
+    @if (Model.Type == "folder")
+    {
+        <h1 style="color: #db9e00;">Folder</h1>
+    }
+    @if (Model.Type == "file")
+    {
+        <h1 style ="color: purple;">File</h1>
+    }
+    <hr />
+    <h1>@Model.Name</h1>
+    <h5 style="color: dimgray;">Path: @Model.Path</h5>
+    <br>
+    @if (Model.Type == "file")
+    {
+        <form asp-action="SaveChanges" method="post">
+            <div>
+                <label asp-for="Name"></label>
+                <textarea asp-for="Name" class="form-control"></textarea>
+            </div>
+            <div>
+                <label asp-for="Content"></label>
+                <textarea asp-for="Content" class="form-control"></textarea>
+            </div>
+            <!-- Скрытое поле для передачи Path -->
+            <input type="hidden" asp-for="Path"/>
+            <!-- Скрытое поле для передачи Type -->
+            <input type="hidden" asp-for="Type" />
+            <h1></h1>
+            <br>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    }
+    @if (Model.Type == "folder")
+    {
+        <form asp-action="SaveChanges" method="post">
+            <div>
+                <label asp-for="Name"></label>
+                <textarea asp-for="Name" class="form-control"></textarea>
+            </div>
+            <!-- Скрытое поле для передачи Path -->
+            <input type="hidden" asp-for="Path" />
+            <!-- Скрытое поле для передачи Type -->
+            <input type="hidden" asp-for="Type" />
+            <!-- Скрытое поле для передачи Name -->
+            <input type="hidden" asp-for="Name" />
+            <h1></h1>
+            <br>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+        <br>
+    }
+    @if (Model.files?.Count > 0)
+    {
+        <h1></h1>
+        <h4>Files:</h4>
+        <ul>
+            @foreach (var file in Model.files)
+            {
+                <li>
+                    @System.IO.Path.GetFileName(file)
+                    <form asp-controller="ObjectReview" asp-action="Index" method="get" style="display:inline;">
+                        <input type="hidden" name="name" value="@System.IO.Path.GetFileName(file)" />
+                        <input type="hidden" name="path" value="@file" />
+                        <input type="hidden" name="type" value="file" />
+                        <button type="submit" class="btn btn-link">Open</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
+
+    @if (Model.folders?.Count > 0)
+    {
+        <h4>Folders:</h4>
+        <ul>
+            @foreach (var folder in Model.folders)
+            {
+                <li>
+                    @System.IO.Path.GetFileName(folder)
+                    <form asp-controller="ObjectReview" asp-action="Index" method="get" style="display:inline;">
+                        <input type="hidden" name="name" value="@System.IO.Path.GetFileName(folder)" />
+                        <input type="hidden" name="path" value="@folder" />
+                        <input type="hidden" name="type" value="folder" />
+                        <button type="submit" class="btn btn-link">Open</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+<h1></h1>
+
+
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <form asp-controller="Search" asp-action="Find" method="get">
+        <button type="submit" class="btn btn-primary">Back to search</button>
+    </form>
+    <div>
+        <!-- Кнопки "Редактировать" или другие -->
+    </div>
+    <div>
+        <form asp-controller="ObjectReview" asp-action="Delete" method="post" style="display:inline;">
+            <input type="hidden" name="path" value="@Model.Path" />
+            <input type="hidden" name="type" value="@Model.Type" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</div>

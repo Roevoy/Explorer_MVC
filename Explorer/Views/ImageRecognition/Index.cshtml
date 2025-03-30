@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Text Input Form";
+}
+
+<h1>Enter the path to image</h1>
+
+<form asp-controller="ImageRecognition" asp-action="SubmitText" method="post">
+    <div class="form-group">
+        <label for="userText">Your Text:</label>
+        <input type="text" class="form-control" id="userText" name="userText" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
